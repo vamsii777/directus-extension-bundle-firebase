@@ -1,10 +1,25 @@
 # Directus Firebase Bundle Extension
 
-## Description
-
-This extension provides integration between Directus and Firebase, offering a seamless link between your Directus project and various Firebase services. Unlike Directus's native support for OpenID Connect, Firebase uses custom JWTs for authentication. This extension uniquely handles the validation of Firebase's JWTs and, upon successful validation, generates and manages Directus user accounts accordingly. This specialized approach ensures compatibility and security between Directus and Firebase authentication mechanisms.
+The Directus Firebase Bundle Extension facilitates seamless integration between Directus CMS and Firebase services. This extension is designed to overcome the limitations of Directus's native OpenID Connect support by handling Firebase's custom JWTs (JSON Web Tokens) for authentication. It validates Firebase JWTs and, upon successful validation, creates and manages Directus user accounts. This approach ensures enhanced compatibility and robust security for integrating Directus with Firebase authentication mechanisms.
 
 ## Setup
+
+Install the extension via npm or pnpm or bun:
+
+For npm:
+```bash
+npm i directus-extension-bundle-firebase
+```
+
+For pnpm:
+```bash
+pnpm add directus-extension-bundle-firebase
+```
+
+For Bun:
+```bash
+bun add directus-extension-bundle-firebase
+```
 
 ### Prerequisites
 
@@ -41,23 +56,21 @@ The extension offers two primary endpoints:
 
 #### Example Usage
 
-For `/firebase/link`:
+POST `/firebase/link`:
 
-```json
-POST /firebase/link
 Content-Type: application/json
 
+```json
 {
   "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ij..."
 }
+
 ```
 
-For `/firebase/auth`:
+POST `/firebase/auth`:
 
-```json
-POST /firebase/auth
 Content-Type: application/json
-
+```json
 {
   "uid": "some-unique-firebase-uid"
 }
