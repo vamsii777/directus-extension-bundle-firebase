@@ -80,7 +80,7 @@ export default defineEndpoint({
 							}
 						},
 						email_verified: decodedToken.email_verified,
-						provider: 'firebase',
+						provider: 'default',
 						phone_number_verified: false,
 						external_identifier: decodedToken.uid, // Save Firebase UID if needed
 					});
