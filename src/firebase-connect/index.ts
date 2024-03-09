@@ -99,9 +99,18 @@ export default defineEndpoint({
 			try {
 				const { AuthenticationService } = services;
 				
-				const userId = req.body.uid;
+				const idToken = req.body.id_token;
+				if (!idToken) {
+					logger.warn('Missing ID token in request body.');
+					return res.status(400).json({ error: 'Missing ID token' });
+				}
+
+				const decodedToken = await admin.auth().verifyIdToken(idToken);
+				if (!decodedToken || !decodedToken.email || !decodedToken.uid) {
+					throw InvalidTokenError;
+				}
 		
-				let user = await database('directus_users').where({ external_identifier: userId }).first();
+				let user = await database('directus_users').where({ external_identifier: decodedToken?.uid }).first();
 		
 				// Create one time session token (OTST) with 30s lifetime
 				const otst = nanoid(64);
